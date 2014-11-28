@@ -1,4 +1,4 @@
-%h2 Usage
+## Usage
 
 ```
 JIRA_USERNAME=<jira_username> JIRA_PASSWORD=<jira_password> bundle exec bin/jr <project_name> points
