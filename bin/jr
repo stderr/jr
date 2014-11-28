@@ -2,7 +2,7 @@
 require 'jr'
 require 'colorize'
 
-TASKS = {points: {help: "Report on total, active, and closed story points for the specified project.", method_name: :point_count}}
+TASKS = {points: {help: "Report on total, active, and closed story points for the specified project.", name: :point_count}}
 project = ARGV[0]
 task = ARGV[1]
 config_file = File.join(ENV['HOME'], '.jrrc')
@@ -38,6 +38,8 @@ site = config[project]['site']
 
 issues = Jr.from(username, password, config[project])
 
-puts issues.send(TASKS[task.to_sym][:method_name])
+Jr::Tasks.load(TASKS[task.to_sym][:name], issues).display
+
+#puts issues.send(TASKS[task.to_sym][:method_name])
 # vi:syntax=ruby
 
