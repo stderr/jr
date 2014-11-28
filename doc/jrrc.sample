@@ -1,0 +1,5 @@
+{ "mgp": {
+  "site": "https://instructure.atlassian.net/",
+  "jql": "labels = 'MultipleGradingPeriods' OR fixVersion = 'Multiple Grading Periods'"
+  }
+}

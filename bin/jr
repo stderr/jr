@@ -1,0 +1,43 @@
+#!/usr/bin/env ruby
+require 'jr'
+require 'colorize'
+
+TASKS = {points: {help: "Report on total, active, and closed story points for the specified project.", method_name: :point_count}}
+project = ARGV[0]
+task = ARGV[1]
+config_file = File.join(ENV['HOME'], '.jrrc')
+unless File.exists?(config_file)
+  puts "Error: There is no .jrrc file. Please create one.".red
+  exit
+end
+
+config = JSON.parse(open(config_file).read)
+
+unless config.keys.include?(project)
+  puts "Error: #{project} does not exist in the .jrrc file.".red
+  exit
+end
+
+unless TASKS.keys.map(&:to_s).include?(task)
+  puts "Error: #{task} is not a supported task. Supported tasks are: ".red
+  TASKS.each do |t, c|
+    puts "#{t.green} - #{c[:help].yellow}"
+  end
+  exit
+end
+
+if config[project]['username'] || config[project]['password']
+  puts "Error: Authentication credentials should be supplied through environment variables.".red
+  exit
+end
+
+username = ENV['JIRA_USERNAME']
+password = ENV['JIRA_PASSWORD']
+jql = config[project]['jql']
+site = config[project]['site']
+
+issues = Jr.from(username, password, config[project])
+
+puts issues.send(TASKS[task.to_sym][:method_name])
+# vi:syntax=ruby
+
