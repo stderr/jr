@@ -16,7 +16,7 @@ module Jr
         else
           @assignee = 'None'
         end
-        @created = Date.parse json['fields']['created']
+        @created = Time.parse json['fields']['created']
         @summary = json['fields']['summary']
       end
     end

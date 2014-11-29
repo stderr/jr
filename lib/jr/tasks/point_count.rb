@@ -4,19 +4,32 @@ module Jr
   module Tasks
     class PointCount < Task
       def display
-        report = parse
-        print_columns "Active".yellow, "Closed".green, "Total".blue
-        print_columns report[:active].to_s.yellow, report[:closed].to_s.green, report[:total].to_s.blue
+        report = parse.map(&:to_s)
+        column_widths(report)
+        print_columns *headers
+
+        print_columns *report
       end
 
-      private
+      protected
+      def colors
+        [:yellow, :green, :blue]
+      end
+
+      def headers
+        ["Total", "Active", "Closed"]
+      end
+
       def parse
-        @issues.each_with_object({total: 0, active: 0, closed: 0}) do |issue, report|
-          report[:total] += issue.points 
+        @issues.each_with_object([0, 0, 0]) do |issue, report|
+          total = 0
+          active = 1
+          closed = 2
+          report[total] += issue.points
           if issue.status == 'Closed'
-            report[:closed] +=  issue.points
+            report[closed] +=  issue.points
           elsif issue.status == 'In Progress'
-            report[:active] += issue.points
+            report[active] += issue.points
           end
         end
       end
