@@ -7,7 +7,8 @@ I18n.enforce_available_locales = false
 
 TASKS = {
   points: { help: "Report on total, active, and closed story points for the specified project.", name: :point_count },
-  current: { help: "Show current tickets in progress.", name: :current_tickets }
+  current: { help: "Show current tickets in progress.", name: :current_tickets },
+  all: { help: "Show all tickets.", name: :all_tickets }
 }
 
 project = ARGV[0]
@@ -19,6 +20,22 @@ unless File.exists?(config_file)
 end
 
 config = JSON.parse(open(config_file).read)
+
+if project == 'help'
+  puts "Available projects".yellow
+  config.keys.each do |p|
+    puts p.to_s.blue
+  end
+
+  puts ""
+
+  puts "Available tasks".yellow
+  TASKS.each do |t, hsh|
+    puts "#{t.to_s.blue}   #{hsh[:help]}"
+  end
+
+  exit
+end
 
 unless config.keys.include?(project)
   puts "Error: #{project} does not exist in the .jrrc file.".red

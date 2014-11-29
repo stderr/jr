@@ -14,7 +14,7 @@ module Jr
         if json['fields']['assignee']
           @assignee = json['fields']['assignee']['displayName']
         else
-          @assignee = 'None'
+          @assignee = 'Unassigned'
         end
         @created = Time.parse json['fields']['created']
         @summary = json['fields']['summary']
