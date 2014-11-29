@@ -2,7 +2,11 @@
 require 'jr'
 require 'colorize'
 
-TASKS = {points: {help: "Report on total, active, and closed story points for the specified project.", name: :point_count}}
+TASKS = {
+  points: { help: "Report on total, active, and closed story points for the specified project.", name: :point_count },
+  current: { help: "Show current tickets in progress.", name: :current_tickets }
+}
+
 project = ARGV[0]
 task = ARGV[1]
 config_file = File.join(ENV['HOME'], '.jrrc')

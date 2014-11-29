@@ -5,6 +5,7 @@ PATH
       activesupport (~> 4.1)
       colorize (~> 0.7)
       faraday (~> 0.9)
+      time_diff (~> 0.3)
 
 GEM
   remote: https://rubygems.org/
@@ -44,6 +45,9 @@ GEM
     rspec-support (3.1.2)
     slop (3.6.0)
     thread_safe (0.3.4)
+    time_diff (0.3.0)
+      activesupport
+      i18n
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
 
