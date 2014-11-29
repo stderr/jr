@@ -11,6 +11,15 @@ module Jr
         end
       end
 
+      protected
+      def colors
+        [:blue, :red, :green, :light_blue, :yellow]
+      end
+
+      def headers
+        ["Summary", "Ticket ID", "Points", "Assignee", "Time Since Creation"]
+      end
+
       def parse
         @issues.each_with_object([]) do |issue, report|
           if issue.status == 'In Progress'
@@ -23,15 +32,6 @@ module Jr
             ]
           end
         end
-      end
-
-      protected
-      def colors
-        [:blue, :red, :green, :light_blue, :yellow]
-      end
-
-      def headers
-        ["Summary", "Ticket ID", "Points", "Assignee", "Time Since Creation"]
       end
     end
   end

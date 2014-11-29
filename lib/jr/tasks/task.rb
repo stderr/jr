@@ -10,12 +10,17 @@ module Jr
       end
 
       protected
+      def colors
+        []
+      end
+
       def headers
         []
       end
 
       def column_widths(rows)
         return @widths if @widths
+
         memo = apply_colors(*headers).map(&:length)
 
         rows.each_with_object(memo) do |row, widths|
@@ -41,7 +46,7 @@ module Jr
           end
         end
 
-        columns = apply_colors(*columns)
+        columns = apply_colors *columns
         printf format, *columns
       end
 

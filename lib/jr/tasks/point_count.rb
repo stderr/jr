@@ -4,8 +4,8 @@ module Jr
       def display
         report = parse.map(&:to_s)
         column_widths(report)
-        print_columns *headers
 
+        print_columns *headers
         print_columns *report
       end
 
@@ -25,6 +25,7 @@ module Jr
           closed = headers.index("Closed")
 
           report[total] += issue.points
+
           if issue.status == 'Closed'
             report[closed] +=  issue.points
           elsif issue.status == 'In Progress'

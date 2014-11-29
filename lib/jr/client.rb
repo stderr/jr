@@ -15,6 +15,7 @@ module Jr
         request.headers['Content-Type'] = 'application/json'
         request.body = %Q|{"jql": "#{jql}"}|
       end
+
       Issues.from JSON.parse(response.body)['issues']
     end
   end
