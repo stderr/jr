@@ -21,8 +21,8 @@ module Jr
       end
 
       def parse
-        @issues.each_with_object([]) do |issue, report|
-          report << [
+        @issues.map do |issue|
+          [
             issue.summary,
             issue.ticket_id,
             issue.status,
