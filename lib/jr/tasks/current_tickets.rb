@@ -1,12 +1,9 @@
-require 'colorize'
-require 'time_diff'
-
 module Jr
   module Tasks
     class CurrentTickets < Task
       def display
-        report = parse.sort_by { |i| i[1] }
-        column_widths(report)
+        report = parse.sort_by { |i| i[headers.index("Assignee")] }
+        column_widths report
 
         print_columns *headers
         report.each do |r|
@@ -18,9 +15,10 @@ module Jr
         @issues.each_with_object([]) do |issue, report|
           if issue.status == 'In Progress'
             report << [
-              issue.ticket_id,
-              issue.assignee,
               issue.summary,
+              issue.ticket_id,
+              issue.points.to_s,
+              issue.assignee,
               Time.diff(issue.created, Time.now)[:diff]
             ]
           end
@@ -29,11 +27,11 @@ module Jr
 
       protected
       def colors
-        [:red, :blue, :green, :yellow]
+        [:blue, :red, :green, :light_blue, :yellow]
       end
 
       def headers
-        ["Ticket ID", "Assignee", "Summary", "Time Since Creation"]
+        ["Summary", "Ticket ID", "Points", "Assignee", "Time Since Creation"]
       end
     end
   end

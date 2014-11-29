@@ -1,5 +1,3 @@
-require 'colorize'
-
 module Jr
   module Tasks
     class PointCount < Task
@@ -22,9 +20,10 @@ module Jr
 
       def parse
         @issues.each_with_object([0, 0, 0]) do |issue, report|
-          total = 0
-          active = 1
-          closed = 2
+          total = headers.index("Total")
+          active = headers.index("Active")
+          closed = headers.index("Closed")
+
           report[total] += issue.points
           if issue.status == 'Closed'
             report[closed] +=  issue.points

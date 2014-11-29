@@ -2,6 +2,9 @@
 require 'jr'
 require 'colorize'
 
+# get rid of time_diff warning
+I18n.enforce_available_locales = false
+
 TASKS = {
   points: { help: "Report on total, active, and closed story points for the specified project.", name: :point_count },
   current: { help: "Show current tickets in progress.", name: :current_tickets }

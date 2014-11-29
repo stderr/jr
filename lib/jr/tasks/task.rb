@@ -1,5 +1,3 @@
-require 'active_support/core_ext/string'
-
 module Jr
   module Tasks
     def self.load(task_name, issues)
@@ -17,29 +15,32 @@ module Jr
       end
 
       def column_widths(rows)
-        @widths ||= begin 
-                      memo = apply_colors(*headers).map(&:length)
+        return @widths if @widths
+        memo = apply_colors(*headers).map(&:length)
 
-                      rows.each_with_object(memo) do |row, widths|
-                        row = apply_colors(*row)
-                        row.each_with_index do |text, i|
-                          if text.length > widths[i]
-                            widths[i] = text.length
-                          end
-                        end
-                      end
-                      memo.map { |i| i+=5 }
-                    end
+        rows.each_with_object(memo) do |row, widths|
+          row = apply_colors(*row)
+
+          row.each_with_index do |text, i|
+            if text.length > widths[i]
+              widths[i] = text.length
+            end
+          end
+        end
+
+        @widths = memo.map { |i| i+=5 }
       end
 
       def print_columns(*columns)
         format = ""
+
         columns.each_with_index do |c, i|
           format << "%-#{@widths[i]}s "
           if i == columns.size - 1
             format << "\n"
           end
         end
+
         columns = apply_colors(*columns)
         printf format, *columns
       end
