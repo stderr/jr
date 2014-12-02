@@ -64,6 +64,5 @@ issues = Jr.from(username, password, config[project])
 
 Jr::Tasks.load(TASKS[task.to_sym][:name], issues).display
 
-#puts issues.send(TASKS[task.to_sym][:method_name])
 # vi:syntax=ruby
 

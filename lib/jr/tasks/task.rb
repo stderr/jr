@@ -7,6 +7,7 @@ module Jr
     class Task
       def initialize(issues)
         @issues = issues
+        @widths = nil
       end
 
       protected
