@@ -11,19 +11,20 @@ module Jr
 
       protected
       def colors
-        [:yellow, :green, :blue]
+        [:yellow, :green, :blue, :red]
       end
 
       def headers
-        ["Total", "Active", "Closed"]
+        ["Total", "Active", "Closed", "Left"]
       end
 
       def parse
-        @issues.each_with_object([0, 0, 0]) do |issue, report|
-          total = headers.index("Total")
-          active = headers.index("Active")
-          closed = headers.index("Closed")
+        total = headers.index("Total")
+        active = headers.index("Active")
+        closed = headers.index("Closed")
+        left = headers.index("Left")
 
+        report = @issues.each_with_object([0, 0, 0, 0]) do |issue, report|
           report[total] += issue.points
 
           if issue.status == 'Closed'
@@ -32,6 +33,9 @@ module Jr
             report[active] += issue.points
           end
         end
+
+        report[left] = report[total] - report[closed]
+        report
       end
     end
   end
