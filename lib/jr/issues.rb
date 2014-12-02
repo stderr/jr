@@ -19,6 +19,26 @@ module Jr
         @created = Time.parse json['fields']['created']
         @summary = json['fields']['summary']
       end
+
+      def closed?
+        status == 'Closed'
+      end
+
+      def in_qa?
+        status == 'QA'
+      end
+
+      def in_progress?
+        status == 'In Progress'
+      end
+
+      def in_feedback?
+        status == 'Feedback'
+      end
+
+      def under_work?
+        in_progress? || in_feedback? || in_qa?
+      end
     end
   end
 end

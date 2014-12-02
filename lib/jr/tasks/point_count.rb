@@ -27,9 +27,9 @@ module Jr
         report = @issues.each_with_object([0, 0, 0, 0]) do |issue, report|
           report[total] += issue.points
 
-          if issue.status == 'Closed'
+          if issue.closed?
             report[closed] +=  issue.points
-          elsif issue.status == 'In Progress'
+          elsif issue.under_work?
             report[active] += issue.points
           end
         end

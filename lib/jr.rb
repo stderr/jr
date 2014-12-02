@@ -5,6 +5,7 @@ require 'active_support/core_ext/string'
 module Jr
   def self.from(username, password, config)
     client = Client.new(config['site'], username, password)
+
     client.issues(config['jql'])
   end
 end
